@@ -107,6 +107,6 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 
 Below is the database schema used in the project:
 
-![Database Schema](images/Untitled.png)
+![Database Schema](Untitled.png)
 
 
