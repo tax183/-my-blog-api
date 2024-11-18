@@ -102,3 +102,57 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 >>>>>>> a8b3d8b (Initial commit for blog project)
+
+# Database Schema
+
+## Tables
+
+### Users Table
+| Column       | Type        | Constraints          |
+|--------------|-------------|----------------------|
+| id           | Integer     | Primary Key          |
+| username     | Varchar     | Unique, Not Null     |
+| role         | Varchar     | Not Null             |
+| created_at   | Timestamp   | Default: Current Time|
+
+### Articles Table
+| Column       | Type        | Constraints          |
+|--------------|-------------|----------------------|
+| id           | Integer     | Primary Key          |
+| title        | Varchar     | Not Null             |
+| body         | Text        |                      |
+| user_id      | Integer     | Foreign Key -> Users |
+| status       | Varchar     |                      |
+| created_at   | Timestamp   | Default: Current Time|
+
+### Comments Table
+| Column       | Type        | Constraints          |
+|--------------|-------------|----------------------|
+| id           | Integer     | Primary Key          |
+| article_id   | Integer     | Foreign Key -> Articles|
+| user_id      | Integer     | Foreign Key -> Users |
+| body         | Text        |                      |
+| created_at   | Timestamp   | Default: Current Time|
+
+### Likes Table
+| Column       | Type        | Constraints          |
+|--------------|-------------|----------------------|
+| id           | Integer     | Primary Key          |
+| article_id   | Integer     | Foreign Key -> Articles|
+| user_id      | Integer     | Foreign Key -> Users |
+| created_at   | Timestamp   | Default: Current Time|
+
+### Follows Table
+| Column            | Type        | Constraints          |
+|-------------------|-------------|----------------------|
+| following_user_id | Integer     | Foreign Key -> Users |
+| followed_user_id  | Integer     | Foreign Key -> Users |
+| created_at        | Timestamp   | Default: Current Time|
+
+### Relationships
+- **Users Table**:
+  - One-to-Many with Articles
+  - One-to-Many with Comments
+  - One-to-Many with Likes
+  - Many-to-Many with Users (via Follows)
+
