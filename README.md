@@ -105,54 +105,8 @@ Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 
 # Database Schema
 
-## Tables
+Below is the schema of the database used in this project:
 
-### Users Table
-| Column       | Type        | Constraints          |
-|--------------|-------------|----------------------|
-| id           | Integer     | Primary Key          |
-| username     | Varchar     | Unique, Not Null     |
-| role         | Varchar     | Not Null             |
-| created_at   | Timestamp   | Default: Current Time|
-
-### Articles Table
-| Column       | Type        | Constraints          |
-|--------------|-------------|----------------------|
-| id           | Integer     | Primary Key          |
-| title        | Varchar     | Not Null             |
-| body         | Text        |                      |
-| user_id      | Integer     | Foreign Key -> Users |
-| status       | Varchar     |                      |
-| created_at   | Timestamp   | Default: Current Time|
-
-### Comments Table
-| Column       | Type        | Constraints          |
-|--------------|-------------|----------------------|
-| id           | Integer     | Primary Key          |
-| article_id   | Integer     | Foreign Key -> Articles|
-| user_id      | Integer     | Foreign Key -> Users |
-| body         | Text        |                      |
-| created_at   | Timestamp   | Default: Current Time|
-
-### Likes Table
-| Column       | Type        | Constraints          |
-|--------------|-------------|----------------------|
-| id           | Integer     | Primary Key          |
-| article_id   | Integer     | Foreign Key -> Articles|
-| user_id      | Integer     | Foreign Key -> Users |
-| created_at   | Timestamp   | Default: Current Time|
-
-### Follows Table
-| Column            | Type        | Constraints          |
-|-------------------|-------------|----------------------|
-| following_user_id | Integer     | Foreign Key -> Users |
-| followed_user_id  | Integer     | Foreign Key -> Users |
-| created_at        | Timestamp   | Default: Current Time|
-
-### Relationships
-- **Users Table**:
-  - One-to-Many with Articles
-  - One-to-Many with Comments
-  - One-to-Many with Likes
-  - Many-to-Many with Users (via Follows)
+![Database Schema](![Untitled](https://github.com/user-attachments/assets/3593ae18-3ef1-49b1-a27d-44c456f9a80b)
+)
 
