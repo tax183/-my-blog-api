@@ -18,11 +18,15 @@ export class AuthService {
         }
         return null;
     }
-
     async login(user: any) {
+        if (!user) {
+            throw new Error('Invalid credentials');
+        }
+    
         const payload = { username: user.username, sub: user.id };
         return {
             access_token: this.jwtService.sign(payload),
         };
+        
     }
 }

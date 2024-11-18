@@ -5,6 +5,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ArticlesModule } from './articles/articles.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { LikesModule } from './likes/likes.module';
+import { CommentsModule } from './comments/comments.module';
+import { FollowsModule } from './follows/follows.module';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -24,7 +27,7 @@ dotenv.config();
     }),
     ArticlesModule, // استيراد ArticlesModule
     UserModule,     // استيراد UserModule
-    AuthModule,     // استيراد AuthModule
+    AuthModule, LikesModule, CommentsModule, FollowsModule,     // استيراد AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
