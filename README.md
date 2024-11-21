@@ -109,4 +109,34 @@ Below is the database schema used in the project:
 
 ![Database Schema](Untitled.png)
 
+# Indexing and Its Impact on Query Performance
+
+ indexing affects query performance, based on an experiment comparing query execution times with and without indexing on a large dataset.
+
+---
+
+## 1. The Experiment
+
+### Objective:
+To analyze the effect of indexing on query performance by:
+1. Running a query to search for a user by `username` before applying indexing.
+2. Applying an index on the `username` field.
+3. Running the same query after applying indexing and comparing the results.
+
+---
+
+## 2. The Setup
+
+### Dataset:
+- Table Name: `user`
+- Number of Records: **~1,000,000**
+
+### Query:
+```sql
+SELECT * FROM user WHERE username = 'ExampleName';
+
+---
+
+![Query Without Indexing](query_without_indexing.png)
+![Query With Indexing](with index.png)
 
