@@ -131,6 +131,6 @@ To analyze the effect of indexing on query performance by:
 ![Query Without Indexing](query_without_indexing.jpg)
 
 ### Query With Indexing :
-![Query With Indexing](withindex.jpg)
+![Query With Indexing](with_index.jpg)
 
 -
