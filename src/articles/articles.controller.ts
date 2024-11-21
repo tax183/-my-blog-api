@@ -3,45 +3,51 @@ import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { User } from '../user/entities/user.entity';
-
+import { faker } from '@faker-js/faker';
+import { DataSource, Repository } from 'typeorm';
+import { Article } from './entities/article.entity';
 @Controller('articles')
 export class ArticlesController {
-    constructor(private readonly articlesService: ArticlesService) {}
+  constructor(private readonly dataSource: DataSource) {}
 
-    @Post()
-    async create(@Body() createArticleDto: CreateArticleDto, user: User) {
-        return this.articlesService.create(createArticleDto, user);
+  @Post('/fillArticles')
+  async fillArticles(@Query('count') count: number = 100_000) {
+    const articlesRepo: Repository<Article> =
+      this.dataSource.getRepository(Article);
+
+    // حجم الدفعة وعدد المقالات الإجمالي
+    const chunkSize = 10_000;
+    const totalArticles = count;
+    const articles = [];
+
+    for (let i = 0; i < totalArticles; i++) {
+      // توليد بيانات عشوائية للمقالة
+      const randomTitle = faker.lorem.sentence();
+      const randomBody = faker.lorem.paragraphs();
+      const randomStatus = faker.helpers.arrayElement(['published', 'draft', 'archived']);
+      const randomAuthorId = Math.floor(Math.random() * 1000) + 1; // توليد معرف عشوائي للمؤلف
+
+      articles.push({
+        title: randomTitle,
+        body: randomBody,
+        status: randomStatus,
+        author: { id: randomAuthorId }, // يجب أن يتوافق مع العلاقة في الكيان
+      });
+
+      // إدخال البيانات عند امتلاء الدفعة
+      if (articles.length === chunkSize) {
+        console.log('Inserting chunk:', i / chunkSize);
+        console.log('Progress:', ((i / totalArticles) * 100).toFixed(2) + '%');
+        await articlesRepo.insert(articles);
+        articles.length = 0; // تفريغ المصفوفة
+      }
     }
 
-    @Get('generate')
-    async generateRandomArticles(@Query('count') count: number = 100) {
-        return this.articlesService.generateRandomArticles(count);
+    // إدخال أي بيانات متبقية
+    if (articles.length > 0) {
+      await articlesRepo.insert(articles);
     }
 
-    @Get()
-    async getAllArticles(
-        @Query('page') page: number = 1,
-        @Query('pageSize') pageSize: number = 10,
-        @Query('searchTerm') searchTerm?: string
-    ) {
-        return this.articlesService.findAll(page, pageSize, searchTerm);
-    }
-
-    @Get(':id')
-    async getArticleById(@Param('id') id: number) {
-        return this.articlesService.findOne(id);
-    }
-
-    @Put(':id')
-    async update(
-        @Param('id') id: number,
-        @Body() updateArticleDto: UpdateArticleDto
-    ) {
-        return this.articlesService.update(id, updateArticleDto);
-    }
-
-    @Delete(':id')
-    async remove(@Param('id') id: number) {
-        return this.articlesService.remove(id);
-    }
+    return `Inserted ${totalArticles} articles successfully!`;
+  }
 }

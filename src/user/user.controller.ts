@@ -8,21 +8,48 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UserController {
   constructor(
     private readonly userService: UserService,
-    private readonly dataSource: DataSource // إضافة DataSource
+    private readonly dataSource: DataSource
   ) {}
 
-  // إنشاء 1000 مستخدم عشوائي
+  // إنشاء مليون مستخدم عشوائي على دفعات
   @Post('/fillUsers')
   async fillUsers() {
     const usersRepo = this.dataSource.getRepository('User');
-    const users = Array.from({ length: 1000 }, () => ({
-      username: faker.internet.userName(),
-      email: faker.internet.email(),
-      password: faker.internet.password(),
-    }));
-    await usersRepo.save(users);
 
-    return '1000 مستخدم تم إضافتهم بنجاح';
+    // حجم الدفعة وعدد المستخدمين الإجمالي
+    const chunkSize = 10_000;
+    const totalUsers = 1_000_000;
+    const users = [];
+
+    for (let i = 0; i < totalUsers; i++) {
+      // توليد بيانات عشوائية للمستخدم
+      const randomUsername = faker.internet.userName();
+      const randomEmail = faker.internet.email();
+      const randomPassword = faker.internet.password();
+      const randomRole = faker.helpers.arrayElement(['admin', 'user']); // دور عشوائي
+
+      users.push({
+        username: randomUsername,
+        email: randomEmail,
+        password: randomPassword,
+        role: randomRole,
+      });
+
+      // إدخال البيانات عند امتلاء الدفعة
+      if (users.length === chunkSize) {
+        console.log('إدخال الدفعة رقم:', i / chunkSize);
+        console.log('النسبة المئوية للإكمال:', ((i / totalUsers) * 100).toFixed(2) + '%');
+        await usersRepo.insert(users);
+        users.length = 0; // تفريغ المصفوفة
+      }
+    }
+
+    // إدخال أي بيانات متبقية
+    if (users.length > 0) {
+      await usersRepo.insert(users);
+    }
+
+    return 'تم إنشاء مليون مستخدم بنجاح';
   }
 
   // جلب جميع المستخدمين
