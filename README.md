@@ -102,3 +102,35 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
 >>>>>>> a8b3d8b (Initial commit for blog project)
+
+# Database Schema
+
+Below is the database schema used in the project:
+
+![Database Schema](Untitled.png)
+
+# Indexing and Its Impact on Query Performance
+
+ indexing affects query performance, based on an experiment comparing query execution times with and without indexing on a large dataset.
+
+---
+
+## 1. The Experiment
+
+### Objective:
+To analyze the effect of indexing on query performance by:
+1. Running a query to search for a user by `username` before applying indexing.
+2. Applying an index on the `username` field.
+3. Running the same query after applying indexing and comparing the results.
+
+---
+
+## 2. The result:
+
+### Query Without Indexing :
+![Query Without Indexing](query_without_indexing.jpg)
+
+### Query With Indexing :
+![Query With Indexing](with_index.jpg)
+
+-
