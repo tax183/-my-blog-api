@@ -125,24 +125,12 @@ To analyze the effect of indexing on query performance by:
 
 ---
 
-## 2. The Setup
+## 2. The result:
 
-### Dataset:
-- Table Name: `user`
-- Number of Records: **~1,000,000**
-
-### Query:
-```sql
-SELECT * FROM user WHERE username = 'ExampleName';
-
----
-## 3. The result 
-### Query Without Indexing
-
+### Query Without Indexing :
 ![Query Without Indexing](query_without_indexing.jpg)
 
+### Query With Indexing :
+![Query With Indexing](withindex.jpg)
 
-### Query With Indexing
-
-![Query With Indexing](with index.jpg)
-
+-
