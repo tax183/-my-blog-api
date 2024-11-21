@@ -135,13 +135,14 @@ To analyze the effect of indexing on query performance by:
 ```sql
 SELECT * FROM user WHERE username = 'ExampleName';
 
-
-# Query Without Indexing
+---
+## 3. The result 
+### Query Without Indexing
 
 ![Query Without Indexing](query_without_indexing.png)
 
 
-# Query With Indexing
+### Query With Indexing
 
 ![Query With Indexing](with index.png)
 
