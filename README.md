@@ -139,10 +139,10 @@ SELECT * FROM user WHERE username = 'ExampleName';
 ## 3. The result 
 ### Query Without Indexing
 
-![Query Without Indexing](query_without_indexing.png)
+![Query Without Indexing](query_without_indexing.jpg)
 
 
 ### Query With Indexing
 
-![Query With Indexing](with index.png)
+![Query With Indexing](with index.jpg)
 
