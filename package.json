@@ -13,7 +13,7 @@
     "migration:down": "npm run typeorm -- migration:revert",
     "migration:drop-schema": "npm run typeorm schema:drop",
     "migration:create": "npx ts-node ./node_modules/typeorm/cli.js migration:create -n",
-    "build": "ts-node -r tsconfig-paths/register -T --files ./node_modules/typeorm/cli.js -d ./ormconfig.ts",
+   "build": "nest build",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
