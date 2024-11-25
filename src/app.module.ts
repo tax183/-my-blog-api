@@ -9,20 +9,23 @@ import { LikesModule } from './likes/likes.module';
 import { CommentsModule } from './comments/comments.module';
 import { FollowsModule } from './follows/follows.module';
 import * as dotenv from 'dotenv';
+const entitiesPath = __dirname + '/**/*.entity{.ts,.js}';
 
 dotenv.config();
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: process.env.DATABASE_HOST || 'localhost',
-      port: +process.env.DATABASE_PORT || 3306,
-      username: process.env.DATABASE_USER || 'root',
-      password: process.env.DATABASE_PASSWORD || '',
-      database: process.env.DATABASE_NAME || 'artical',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'], // يلتقط جميع الكيانات من المسار المحدد
+      type: 'postgres',
+      host: process.env.DB_HOST,
+      port: 5433,
+      username: process.env.DB_USERNAME, //'postgres',
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+      autoLoadEntities: true,
+      entities: [entitiesPath],
       synchronize: false,
+      migrationsRun: true,
       logging: false,
     }),
     ArticlesModule, // استيراد ArticlesModule
