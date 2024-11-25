@@ -13,7 +13,7 @@
     "migration:down": "npm run typeorm -- migration:revert",
     "migration:drop-schema": "npm run typeorm schema:drop",
     "migration:create": "npx ts-node ./node_modules/typeorm/cli.js migration:create -n",
-   "build": "nest build",
+    "build": "nest build",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
+    "@nestjs/config": "^3.3.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/jwt": "^10.2.0",
     "@nestjs/mapped-types": "*",
