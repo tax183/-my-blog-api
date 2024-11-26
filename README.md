@@ -134,3 +134,10 @@ To analyze the effect of indexing on query performance by:
 ![Query With Indexing](with_index.jpg)
 
 -
+## System Design
+
+### Current Design
+![Current Design](curDesign.png)
+
+### Future Design
+![Future Design](FutuerDesign.png)
