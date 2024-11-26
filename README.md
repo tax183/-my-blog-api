@@ -141,3 +141,7 @@ To analyze the effect of indexing on query performance by:
 
 ### Future Design
 ![Future Design](FutuerDesign.png)
+
+## Deployment URL
+Production:(https://my-blog-api-50w1.onrender.com)
+
