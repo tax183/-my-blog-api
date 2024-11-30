@@ -18,10 +18,4 @@ jobs:
     - name: تنزيل الكود من المستودع
       uses: actions/checkout@v3
 
-    # الخطوة الثانية: إرسال إشعار إلى Slack عند دفع (Push) إلى فرعي `master` أو `dev`
-    - name: إرسال إشعار إلى Slack
-      if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev'
-      run: |
-        curl -X POST -H 'Content-type: application/json' \
-        --data "{\"text\":\"تم إضافة تغيير جديد إلى فرع ${GITHUB_REF#refs/heads/}! \nالتعديل: ${GITHUB_SHA}\nالرسالة: ${{ github.event.head_commit.message }}\nبواسطة: ${GITHUB_ACTOR}\"}" \
-        ${{ secrets.SLACK_WEBHOOK_URL }}
+    
