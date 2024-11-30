@@ -1,0 +1,27 @@
+name: CI Workflow
+
+# تعريف الأحداث التي ستقوم بتشغيل الـ Workflow
+on:
+  push:
+    branches:
+      - master # الفرع الرئيسي
+      - dev    # فرع التطوير
+
+# تعريف المهام التي سيتم تشغيلها كجزء من الـ Workflow
+jobs:
+  notify_slack:
+    # سيتم تشغيل هذا العمل على أحدث بيئة Ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+    # الخطوة الأولى: تنزيل الكود من المستودع
+    - name: تنزيل الكود من المستودع
+      uses: actions/checkout@v3
+
+    # الخطوة الثانية: إرسال إشعار إلى Slack عند دفع (Push) إلى فرعي `master` أو `dev`
+    - name: إرسال إشعار إلى Slack
+      if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev'
+      run: |
+        curl -X POST -H 'Content-type: application/json' \
+        --data "{\"text\":\"تم إضافة تغيير جديد إلى فرع ${GITHUB_REF#refs/heads/}! \nالتعديل: ${GITHUB_SHA}\nالرسالة: ${{ github.event.head_commit.message }}\nبواسطة: ${GITHUB_ACTOR}\"}" \
+        ${{ secrets.SLACK_WEBHOOK_URL }}
